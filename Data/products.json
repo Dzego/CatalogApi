@@ -1,0 +1,5 @@
+[
+  { "id": 1, "name": "Laptop", "category": "Electronics", "price": 15999.99, "inStock": true },
+  { "id": 2, "name": "Headphones", "category": "Electronics", "price": 899.99, "inStock": true },
+  { "id": 3, "name": "Coffee Mug", "category": "Home", "price": 129.99, "inStock": false }
+]
