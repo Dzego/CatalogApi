@@ -2,6 +2,7 @@ using System;
 using CatalogApi.Application.Abstractions;
 using CatalogApi.Application.Validation;
 using CatalogApi.Contracts.Dtos;
+using CatalogApi.Domain.Models;
 
 namespace CatalogApi.Application.Services;
 
@@ -59,5 +60,36 @@ public class ProductService
         var p = await _repo.GetByIdAsync(id, ct);
         return p is null ? null : new ProductDto(p.Id, p.Name, p.Category, p.Price, p.InStock);
     }
+
+    public Task<Product> CreateAsync(ProductCreateDto dto, CancellationToken ct)
+    {
+        var product = new Product
+        {
+            Id = 0,                
+            Name = dto.Name,
+            Category = dto.Category,
+            Price = dto.Price,
+            InStock = dto.InStock
+        };
+
+        return _repo.AddAsync(product, ct);
+    }
+
+    public async Task<bool> UpdateAsync(int id, ProductUpdateDto dto, CancellationToken ct)
+    {
+        var product = new Product
+        {
+            Id = id,                
+            Name = dto.Name,
+            Category = dto.Category,
+            Price = dto.Price,
+            InStock = dto.InStock
+        };
+        
+        return await _repo.UpdateAsync(product, ct);
+    }
+
+    public Task<bool> DeleteAsync(int id, CancellationToken ct) => _repo.DeleteAsync(id, ct);
+
 
 }

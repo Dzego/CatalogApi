@@ -19,5 +19,12 @@
     "Category": "Home",
     "Price": 129.99,
     "InStock": false
+  },
+  {
+    "Id": 4,
+    "Name": "Mouse",
+    "Category": "Electronics",
+    "Price": 199.99,
+    "InStock": true
   }
 ]

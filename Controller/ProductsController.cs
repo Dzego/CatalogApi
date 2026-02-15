@@ -29,6 +29,28 @@ namespace CatalogApi.Controller
         {
             var result = await _service.GetByIdAsync(id, ct);
             return result is null ? NotFound(new { message = "Product not found" }) : Ok(result);
-    }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] ProductCreateDto dto, CancellationToken ct)
+        {
+            var created = await _service.CreateAsync(dto, ct);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update(int id, [FromBody] ProductUpdateDto dto, CancellationToken ct)
+        {
+            var updated = await _service.UpdateAsync(id, dto, ct);
+            return updated ? NoContent() : NotFound(new { message = "Product not found" });
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id, CancellationToken ct)
+        {
+            var deleted = await _service.DeleteAsync(id, ct);
+            return deleted ? NoContent() : NotFound(new { message = "Product not found" });
+        }
+
     }
 }
