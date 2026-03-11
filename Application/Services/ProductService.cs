@@ -54,7 +54,7 @@ public class ProductService
             TotalPages: totalPages
         );
     }
-
+    
     public async Task<ProductDto?> GetByIdAsync(int id, CancellationToken ct)
     {
         var p = await _repo.GetByIdAsync(id, ct);

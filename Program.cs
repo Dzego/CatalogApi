@@ -13,6 +13,17 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IProductRepository, JsonProductRepository>();
 builder.Services.AddScoped<ProductService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("frontend", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:4200") 
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,12 +33,8 @@ if (app.Environment.IsDevelopment())
     
 }
 
+app.UseCors("frontend");
 app.MapControllers();
 app.UseHttpsRedirection();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
